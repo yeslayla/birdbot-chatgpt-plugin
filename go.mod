@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/ayush6624/go-chatgpt v0.2.0
 	github.com/ilyakaznacheev/cleanenv v1.4.2
-	github.com/yeslayla/birdbot-common v0.0.0-20230619053929-5d690affa770
+	github.com/yeslayla/birdbot-common v0.1.0
 )
 
 require (

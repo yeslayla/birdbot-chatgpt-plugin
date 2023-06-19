@@ -29,6 +29,10 @@ github.com/rogpeppe/go-internal v1.9.0/go.mod h1:WtVeX8xhTBvf0smdhujwtBcq4Qrzq/f
 github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ8=
 github.com/yeslayla/birdbot-common v0.0.0-20230619053929-5d690affa770 h1:tKCGApCuP7j8VrkZkq8XnN2nFFN/o/IuiRojTCaqpRo=
 github.com/yeslayla/birdbot-common v0.0.0-20230619053929-5d690affa770/go.mod h1:zyvQi9lqnd8tKudJW75FRyBONnAa2JwYk43vLECJqO0=
+github.com/yeslayla/birdbot-common v0.0.0-20230619070010-f2f53056ada2 h1:HkJ7vOl56PEyjFv+jm6uqWyFFXNZLsDpT93urWM0+bk=
+github.com/yeslayla/birdbot-common v0.0.0-20230619070010-f2f53056ada2/go.mod h1:zyvQi9lqnd8tKudJW75FRyBONnAa2JwYk43vLECJqO0=
+github.com/yeslayla/birdbot-common v0.1.0 h1:Ozj9E8CP50iBqMviEpHxpKwdyCr7jkBMQonncHRvnqM=
+github.com/yeslayla/birdbot-common v0.1.0/go.mod h1:zyvQi9lqnd8tKudJW75FRyBONnAa2JwYk43vLECJqO0=
 golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b/go.mod h1:T9bdIzuCu7OtxOm1hfPfRQxPLYneinmdGuTeoZ9dtd4=
 golang.org/x/crypto v0.10.0 h1:LKqV2xt9+kDzSTfOhx4FrkEBcMrAgHSYgzywV9zcGmM=
 golang.org/x/crypto v0.10.0/go.mod h1:o4eNf7Ede1fv+hwOwZsTHl9EsPFO6q6ZvYR8vYfY45I=
