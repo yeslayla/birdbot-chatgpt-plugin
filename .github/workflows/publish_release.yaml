@@ -36,6 +36,7 @@ jobs:
           files: |
             build/plugins/chatgpt.so
             sample_config.yaml
+          draft: false
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -46,4 +47,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: yeslayla/birdbot:latest,yeslayla/birdbot:${{ env.RELEASE_VERSION }}
+          tags: yeslayla/birdbot-chatgpt:latest,yeslayla/birdbot-chatgpt:${{ env.RELEASE_VERSION }}
