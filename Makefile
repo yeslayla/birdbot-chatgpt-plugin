@@ -15,7 +15,7 @@ go-full-build: go-clean go-get go-build
 go-build:
 	@echo "  >  Building binary..."
 	@mkdir -p $(GOBIN)
-	@GOOS=linux CGO_ENABLED=1 go build -o $(GOBIN)/$(PROJECT_BIN) $(GOFILES)
+	@GOOS=linux CGO_ENABLED=1 go build -buildmode=plugin -o $(GOBIN)/$(PROJECT_BIN) $(GOFILES)
 	@chmod 755 $(GOBIN)/$(PROJECT_BIN)
 
 go-generate:
