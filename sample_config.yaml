@@ -1,0 +1,8 @@
+open_ai_key: ""
+
+# This prompt determines the AI's personality
+prompt: ""
+
+# Feature flags
+enable_command: true
+enable_chat: false
