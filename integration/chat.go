@@ -19,12 +19,12 @@ func (chat *Chat) Initialize(bird common.ExternalChatManager) {
 	if chat.module.Config.ResponseChance == 0 {
 		chat.chance = 1
 	} else {
-		chat.chance = chat.module.Config.ResponseChance / 100
+		chat.chance = chat.module.Config.ResponseChance / 100.0
 	}
 }
 
 func (chat *Chat) RecieveMessage(user common.User, message string) {
-	if rand.Float64() < chat.chance {
+	if rand.Float64() <= chat.chance {
 		return
 	}
 
