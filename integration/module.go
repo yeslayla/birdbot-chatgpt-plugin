@@ -41,7 +41,7 @@ func (m *Module) Initialize(birdbot common.ModuleManager) error {
 		}
 	}
 
-	m.ChatGPT = chatgpt.NewChatGPT(m.Config.OpenAIKey, m.Config.Prompt)
+	m.ChatGPT = chatgpt.NewChatGPT(m.Config.OpenAIKey, m.Config.Prompts)
 
 	m.chat = m.NewChat()
 

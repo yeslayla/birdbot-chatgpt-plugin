@@ -12,20 +12,17 @@ import (
 
 func (chat *ChatGPT) Ask(user common.User, message string) string {
 
+	messages := ConvertPrompts(chat.Prompts)
+	messages = append(messages, chatgpt.ChatMessage{
+		Role:    chatgpt.ChatGPTModelRoleUser,
+		Content: fmt.Sprintf("%s: %s", user.DisplayName, message),
+	})
+
 	ctx := context.Background()
 	res, err := chat.client.Send(ctx, &chatgpt.ChatCompletionRequest{
-		Model: chatgpt.GPT35Turbo0301,
-		User:  user.ID,
-		Messages: []chatgpt.ChatMessage{
-			{
-				Role:    chatgpt.ChatGPTModelRoleSystem,
-				Content: chat.Prompt,
-			},
-			{
-				Role:    chatgpt.ChatGPTModelRoleUser,
-				Content: fmt.Sprintf("%s: %s", user.DisplayName, message),
-			},
-		},
+		Model:    chatgpt.GPT35Turbo0301,
+		User:     user.ID,
+		Messages: messages,
 	})
 	if err != nil {
 		log.Printf("Failed simple send: %s", err)

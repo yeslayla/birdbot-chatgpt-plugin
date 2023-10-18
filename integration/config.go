@@ -3,11 +3,17 @@ package integration
 import "strings"
 
 type Config struct {
-	OpenAIKey      string  `yaml:"open_ai_key" env:"OPENAI_KEY"`
-	EnableCommand  Feature `yaml:"enable_command"`
-	EnableChat     Feature `yaml:"enable_chat"`
-	Prompt         string  `yaml:"prompt"`
-	ResponseChance float64 `yaml:"response_chance"`
+	OpenAIKey      string   `yaml:"open_ai_key" env:"OPENAI_KEY"`
+	EnableCommand  Feature  `yaml:"enable_command"`
+	EnableChat     Feature  `yaml:"enable_chat"`
+	Prompts        []Prompt `yaml:"prompts"`
+	ResponseChance float64  `yaml:"response_chance"`
+}
+
+// Prompt is a struct that represents a ChatGPT message
+type Prompt struct {
+	Role string `yaml:"role"`
+	Text string `yaml:"text"`
 }
 
 // Feature is a boolean string used to toggle functionality
