@@ -1,19 +1,17 @@
 package integration
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/yeslayla/birdbot-chatgpt-plugin/chatgpt"
+)
 
 type Config struct {
-	OpenAIKey      string   `yaml:"open_ai_key" env:"OPENAI_KEY"`
-	EnableCommand  Feature  `yaml:"enable_command"`
-	EnableChat     Feature  `yaml:"enable_chat"`
-	Prompts        []Prompt `yaml:"prompts"`
-	ResponseChance float64  `yaml:"response_chance"`
-}
-
-// Prompt is a struct that represents a ChatGPT message
-type Prompt struct {
-	Role string `yaml:"role"`
-	Text string `yaml:"text"`
+	OpenAIKey      string           `yaml:"open_ai_key" env:"OPENAI_KEY"`
+	EnableCommand  Feature          `yaml:"enable_command"`
+	EnableChat     Feature          `yaml:"enable_chat"`
+	Prompts        []chatgpt.Prompt `yaml:"prompts"`
+	ResponseChance float64          `yaml:"response_chance"`
 }
 
 // Feature is a boolean string used to toggle functionality

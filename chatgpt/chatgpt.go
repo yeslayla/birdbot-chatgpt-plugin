@@ -2,16 +2,15 @@ package chatgpt
 
 import (
 	"github.com/ayush6624/go-chatgpt"
-	"github.com/yeslayla/birdbot-chatgpt-plugin/integration"
 )
 
 type ChatGPT struct {
-	Prompts []integration.Prompt
+	Prompts []Prompt
 
 	client *chatgpt.Client
 }
 
-func NewChatGPT(key string, prompts []integration.Prompt) *ChatGPT {
+func NewChatGPT(key string, prompts []Prompt) *ChatGPT {
 
 	client, _ := chatgpt.NewClient(key)
 	return &ChatGPT{
