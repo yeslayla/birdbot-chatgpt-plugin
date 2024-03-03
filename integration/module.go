@@ -61,7 +61,7 @@ func (m *Module) Initialize(birdbot common.ModuleManager) error {
 			},
 			EphemeralResponse: false,
 		}, func(u common.User, args map[string]any) string {
-			return m.ChatGPT.Ask(u, fmt.Sprint(args["message"]))
+			return m.ChatGPT.Ask(u, fmt.Sprint(args["message"]), u.ID)
 		})
 	}
 

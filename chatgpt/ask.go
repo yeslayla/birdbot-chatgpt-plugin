@@ -10,19 +10,29 @@ import (
 	"github.com/yeslayla/birdbot-common/common"
 )
 
-func (chat *ChatGPT) Ask(user common.User, message string) string {
+func (chat *ChatGPT) Ask(user common.User, message string, historyContext string) string {
+
+	// Get chat history
+	chatHistory := chat.chatHistory[historyContext]
+	if chatHistory == nil {
+		chatHistory = make([]chatgpt.ChatMessage, 0)
+	}
 
 	messages := ConvertPrompts(chat.Prompts)
-	messages = append(messages, chatgpt.ChatMessage{
+	newMessage := chatgpt.ChatMessage{
 		Role:    chatgpt.ChatGPTModelRoleUser,
 		Content: fmt.Sprintf("%s: %s", user.DisplayName, message),
-	})
+	}
+	messages = append(messages, newMessage)
+
+	// Add messages to chat history
+	chatHistory = append(chatHistory, newMessage)
 
 	ctx := context.Background()
 	res, err := chat.client.Send(ctx, &chatgpt.ChatCompletionRequest{
-		Model:    chatgpt.GPT35Turbo0301,
+		Model:    chatgpt.GPT4,
 		User:     user.ID,
-		Messages: messages,
+		Messages: append(messages, chatHistory...),
 	})
 	if err != nil {
 		log.Printf("Failed simple send: %s", err)
@@ -41,6 +51,17 @@ func (chat *ChatGPT) Ask(user common.User, message string) string {
 		content = strings.TrimPrefix(content, prefix)
 	}
 	content = strings.TrimSpace(content)
+
+	// Add response to history
+	chatHistory = append(chatHistory, res.Choices[0].Message)
+
+	// Clear history older than maxHistoryLength
+	if len(chatHistory) > chat.maxHistoryLength {
+		chatHistory = chatHistory[len(chatHistory)-chat.maxHistoryLength:]
+	}
+
+	// Update chat history
+	chat.chatHistory[historyContext] = chatHistory
 
 	return content
 }
