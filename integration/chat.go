@@ -28,8 +28,10 @@ func (chat *Chat) RecieveMessage(user common.User, message string) {
 		return
 	}
 
-	content := chat.module.ChatGPT.Ask(user, message, "chat")
-	chat.bird.SendMessage("BirdBot", content)
+	go func() {
+		content := chat.module.ChatGPT.Ask(user, message, "chat")
+		chat.bird.SendMessage("BirdBot", content)
+	}()
 
 }
 
