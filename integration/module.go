@@ -44,6 +44,20 @@ func (m *Module) Initialize(birdbot common.ModuleManager) error {
 
 	if m.Config.EnableImageGeneration.IsEnabledByDefault() {
 		dalle.RegisterDalleWithChatGPT(m.ChatGPT, m.DALLE)
+
+		birdbot.RegisterCommand("generate", common.ChatCommandConfiguration{
+			Description: "Generates an image from a prompt",
+			Options: map[string]common.ChatCommandOption{
+				"prompt": {
+					Description: "The prompt to generate the image from",
+					Type:        common.CommandTypeString,
+					Required:    true,
+				},
+			},
+			EphemeralResponse: false,
+		}, func(u common.User, args map[string]any) string {
+			return m.DALLE.Ask(u, fmt.Sprint(args["message"]))
+		})
 	}
 
 	m.chat = m.NewChat()
