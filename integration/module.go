@@ -4,24 +4,22 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
-	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/yeslayla/birdbot-chatgpt-plugin/chatgpt"
+	"github.com/yeslayla/birdbot-chatgpt-plugin/dalle"
 	"github.com/yeslayla/birdbot-common/common"
 )
 
 type Module struct {
 	chat    *Chat
 	ChatGPT *chatgpt.ChatGPT
+	DALLE   *dalle.DALLE
 	Config  *Config
 }
 
 func (m *Module) Initialize(birdbot common.ModuleManager) error {
-
-	rand.Seed(time.Now().UnixNano())
 
 	configFile := birdbot.GetConfigPath("chatgpt.yaml")
 	log.Printf("Using config: %s", configFile)
@@ -41,7 +39,12 @@ func (m *Module) Initialize(birdbot common.ModuleManager) error {
 		}
 	}
 
-	m.ChatGPT = chatgpt.NewChatGPT(m.Config.OpenAIKey, m.Config.Prompts)
+	m.ChatGPT = chatgpt.New(m.Config.OpenAIKey, m.Config.Prompts)
+	m.DALLE = dalle.New(m.Config.OpenAIKey)
+
+	if m.Config.EnableImageGeneration.IsEnabledByDefault() {
+		dalle.RegisterDalleWithChatGPT(m.ChatGPT, m.DALLE)
+	}
 
 	m.chat = m.NewChat()
 

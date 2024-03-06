@@ -7,11 +7,12 @@ import (
 )
 
 type Config struct {
-	OpenAIKey      string           `yaml:"open_ai_key" env:"OPENAI_KEY"`
-	EnableCommand  Feature          `yaml:"enable_command"`
-	EnableChat     Feature          `yaml:"enable_chat"`
-	Prompts        []chatgpt.Prompt `yaml:"prompts"`
-	ResponseChance float64          `yaml:"response_chance"`
+	OpenAIKey             string           `yaml:"open_ai_key" env:"OPENAI_KEY"`
+	EnableCommand         Feature          `yaml:"enable_command"`
+	EnableChat            Feature          `yaml:"enable_chat"`
+	EnableImageGeneration Feature          `yaml:"enable_image_generation"`
+	Prompts               []chatgpt.Prompt `yaml:"prompts"`
+	ResponseChance        float64          `yaml:"response_chance"`
 }
 
 // Feature is a boolean string used to toggle functionality

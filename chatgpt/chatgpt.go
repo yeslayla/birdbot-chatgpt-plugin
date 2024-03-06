@@ -1,25 +1,32 @@
 package chatgpt
 
 import (
-	"github.com/ayush6624/go-chatgpt"
+	openai "github.com/sashabaranov/go-openai"
+	"github.com/yeslayla/birdbot-common/common"
 )
 
 type ChatGPT struct {
 	Prompts []Prompt
 
-	client *chatgpt.Client
+	client *openai.Client
+
+	tools        map[string]openai.Tool
+	toolHandlers map[string]func(common.User, map[string]any) (string, error)
 
 	maxHistoryLength int
-	chatHistory      map[string][]chatgpt.ChatMessage
+	chatHistory      map[string][]openai.ChatCompletionMessage
 }
 
-func NewChatGPT(key string, prompts []Prompt) *ChatGPT {
+// New creates a new ChatGPT instance
+func New(key string, prompts []Prompt) *ChatGPT {
 
-	client, _ := chatgpt.NewClient(key)
+	client := openai.NewClient(key)
 	return &ChatGPT{
 		client:           client,
 		Prompts:          prompts,
-		maxHistoryLength: 50,
-		chatHistory:      make(map[string][]chatgpt.ChatMessage),
+		maxHistoryLength: 5,
+		chatHistory:      make(map[string][]openai.ChatCompletionMessage),
+		tools:            make(map[string]openai.Tool),
+		toolHandlers:     make(map[string]func(common.User, map[string]any) (string, error)),
 	}
 }
