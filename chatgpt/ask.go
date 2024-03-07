@@ -28,15 +28,16 @@ func (chat *ChatGPT) Ask(user common.User, message string, historyContext string
 	messages = append(messages, newMessage)
 
 	// Add messages to chat history
-	chatHistory = append(chatHistory, newMessage)
+	chatHistory = append(chatHistory, messages...)
 
 	ctx := context.Background()
 	res, err := chat.client.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
 		Model:     openai.GPT3Dot5Turbo,
-		Messages:  messages,
-		MaxTokens: 150,
+		Messages:  chatHistory,
+		MaxTokens: 500,
 		User:      user.ID,
-		Tools:     chat.GetTools(),
+
+		Tools: chat.GetTools(),
 	})
 	if err != nil {
 		log.Printf("Failed to send: %s", err)
@@ -82,7 +83,9 @@ func (chat *ChatGPT) Ask(user common.User, message string, historyContext string
 	content = strings.TrimSpace(content)
 
 	// Add response to history
-	chatHistory = append(chatHistory, res.Choices[0].Message)
+	if choice.Message.ToolCalls == nil {
+		chatHistory = append(chatHistory, choice.Message)
+	}
 
 	// Clear history older than maxHistoryLength
 	if len(chatHistory) > chat.maxHistoryLength {

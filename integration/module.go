@@ -39,7 +39,7 @@ func (m *Module) Initialize(birdbot common.ModuleManager) error {
 		}
 	}
 
-	m.ChatGPT = chatgpt.New(m.Config.OpenAIKey, m.Config.Prompts)
+	m.ChatGPT = chatgpt.New(m.Config.OpenAIKey, m.Config.HistoryLength, m.Config.Prompts)
 	m.DALLE = dalle.New(m.Config.OpenAIKey)
 
 	if m.Config.EnableImageGeneration.IsEnabledByDefault() {

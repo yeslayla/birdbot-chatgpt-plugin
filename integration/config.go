@@ -13,6 +13,7 @@ type Config struct {
 	EnableImageGeneration Feature          `yaml:"enable_image_generation"`
 	Prompts               []chatgpt.Prompt `yaml:"prompts"`
 	ResponseChance        float64          `yaml:"response_chance"`
+	HistoryLength         int              `yaml:"history_length"`
 }
 
 // Feature is a boolean string used to toggle functionality

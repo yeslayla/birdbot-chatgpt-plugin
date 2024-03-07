@@ -14,8 +14,9 @@ func (dalle *DALLE) Ask(user common.User, message string) string {
 	res, err := dalle.client.CreateImage(ctx, openai.ImageRequest{
 		Prompt:         message,
 		User:           user.ID,
-		Size:           openai.CreateImageSize256x256,
+		Size:           openai.CreateImageSize1024x1024,
 		ResponseFormat: openai.CreateImageResponseFormatURL,
+		Model:          openai.CreateImageModelDallE3,
 		N:              1,
 	})
 	if err != nil {
