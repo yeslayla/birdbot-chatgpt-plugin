@@ -39,8 +39,13 @@ func (m *Module) Initialize(birdbot common.ModuleManager) error {
 		}
 	}
 
-	m.ChatGPT = chatgpt.New(m.Config.OpenAIKey, m.Config.HistoryLength, m.Config.Prompts)
-	m.DALLE = dalle.New(m.Config.OpenAIKey)
+	m.ChatGPT = chatgpt.New(&chatgpt.NewChatGPTOptions{
+		OpenAIKey:        m.Config.OpenAIKey,
+		MaxHistoryLength: m.Config.HistoryLength,
+		OpenAIModel:      m.Config.ChatGPTModel,
+		Prompts:          m.Config.Prompts,
+	})
+	m.DALLE = dalle.New(m.Config.OpenAIKey, m.Config.DalleModel)
 
 	if m.Config.EnableImageGeneration.IsEnabledByDefault() {
 		dalle.RegisterDalleWithChatGPT(m.ChatGPT, m.DALLE)

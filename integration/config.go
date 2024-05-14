@@ -12,6 +12,8 @@ type Config struct {
 	EnableChat            Feature          `yaml:"enable_chat"`
 	EnableImageGeneration Feature          `yaml:"enable_image_generation"`
 	Prompts               []chatgpt.Prompt `yaml:"prompts"`
+	ChatGPTModel          string           `yaml:"chatgpt_model"`
+	DalleModel            string           `yaml:"dalle_model"`
 	ResponseChance        float64          `yaml:"response_chance"`
 	HistoryLength         int              `yaml:"history_length"`
 }

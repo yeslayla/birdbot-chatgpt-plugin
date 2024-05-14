@@ -16,7 +16,7 @@ func (dalle *DALLE) Ask(user common.User, message string) string {
 		User:           user.ID,
 		Size:           openai.CreateImageSize1024x1024,
 		ResponseFormat: openai.CreateImageResponseFormatURL,
-		Model:          openai.CreateImageModelDallE3,
+		Model:          dalle.model,
 		N:              1,
 	})
 	if err != nil {

@@ -32,7 +32,7 @@ func (chat *ChatGPT) Ask(user common.User, message string, historyContext string
 
 	ctx := context.Background()
 	res, err := chat.client.CreateChatCompletion(ctx, openai.ChatCompletionRequest{
-		Model:     openai.GPT3Dot5Turbo,
+		Model:     chat.openaiModel,
 		Messages:  chatHistory,
 		MaxTokens: 500,
 		User:      user.ID,

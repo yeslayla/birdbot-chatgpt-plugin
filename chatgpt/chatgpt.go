@@ -14,23 +14,37 @@ type ChatGPT struct {
 	tools        map[string]openai.Tool
 	toolHandlers map[string]func(common.User, map[string]any) (string, error)
 
+	openaiModel string
+
 	maxHistoryLength int
 	chatHistory      map[string][]openai.ChatCompletionMessage
 }
 
+// NewChatGPTOptions are the options for creating a new ChatGPT instance
+type NewChatGPTOptions struct {
+	OpenAIKey        string
+	MaxHistoryLength int
+	OpenAIModel      string
+	Prompts          []Prompt
+}
+
 // New creates a new ChatGPT instance
-func New(key string, maxHistoryLength int, prompts []Prompt) *ChatGPT {
-	if maxHistoryLength == 0 {
-		maxHistoryLength = 5
+func New(options *NewChatGPTOptions) *ChatGPT {
+	if options.MaxHistoryLength == 0 {
+		options.MaxHistoryLength = 5
+	}
+	if options.OpenAIModel == "" {
+		options.OpenAIModel = openai.GPT3Dot5Turbo
 	}
 
-	client := openai.NewClient(key)
+	client := openai.NewClient(options.OpenAIKey)
 	return &ChatGPT{
 		client:           client,
-		Prompts:          prompts,
-		maxHistoryLength: maxHistoryLength,
+		Prompts:          options.Prompts,
+		maxHistoryLength: options.MaxHistoryLength,
 		chatHistory:      make(map[string][]openai.ChatCompletionMessage),
 		tools:            make(map[string]openai.Tool),
 		toolHandlers:     make(map[string]func(common.User, map[string]any) (string, error)),
+		openaiModel:      options.OpenAIModel,
 	}
 }
